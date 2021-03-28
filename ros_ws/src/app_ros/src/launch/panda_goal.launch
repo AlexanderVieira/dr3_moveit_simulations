@@ -1,0 +1,6 @@
+<launch>
+    	
+    <node pkg="app_ros" type="panda_goal.py" name="panda_goal" output="screen">
+    </node>    
+
+</launch>

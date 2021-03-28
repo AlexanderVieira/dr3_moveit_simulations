@@ -1,0 +1,5 @@
+app_ros
+/home/ros_ws/devel/.private/app_ros/cmake.lock /home/ros_ws/devel/./cmake.lock
+/home/ros_ws/devel/.private/app_ros/lib/pkgconfig/app_ros.pc /home/ros_ws/devel/lib/pkgconfig/app_ros.pc
+/home/ros_ws/devel/.private/app_ros/share/app_ros/cmake/app_rosConfig-version.cmake /home/ros_ws/devel/share/app_ros/cmake/app_rosConfig-version.cmake
+/home/ros_ws/devel/.private/app_ros/share/app_ros/cmake/app_rosConfig.cmake /home/ros_ws/devel/share/app_ros/cmake/app_rosConfig.cmake

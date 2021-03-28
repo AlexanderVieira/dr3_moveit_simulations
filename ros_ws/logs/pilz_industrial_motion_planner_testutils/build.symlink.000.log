@@ -1,0 +1,4 @@
+Symlinking /home/ros_ws/devel/lib/libpilz_industrial_motion_planner_testutils.so
+Symlinking /home/ros_ws/devel/lib/pkgconfig/pilz_industrial_motion_planner_testutils.pc
+Symlinking /home/ros_ws/devel/share/pilz_industrial_motion_planner_testutils/cmake/pilz_industrial_motion_planner_testutilsConfig.cmake
+Symlinking /home/ros_ws/devel/share/pilz_industrial_motion_planner_testutils/cmake/pilz_industrial_motion_planner_testutilsConfig-version.cmake
