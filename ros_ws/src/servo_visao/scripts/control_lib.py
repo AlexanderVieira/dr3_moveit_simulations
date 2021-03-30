@@ -65,6 +65,10 @@ def cartesian_control(robot_pose,goal,K_v,K_omega,max_lin=0.5, max_ang=0.5, thre
 
     return u
 
+# Author: Alexander Silva
+# Autonomous Vehicle - Infnet	            
+# Version: 1.0                              
+# Date: 29-03-2021                          
 def cartesian_control_v1(robot_pose,goal_stamped,K_v,K_omega,max_lin, max_ang, threshold):
         
     rospy.loginfo(rospy.get_caller_id() + " Posição inicial eixo X: %s m", '{:.2f}'.format(robot_pose.x))
@@ -267,6 +271,10 @@ def ibvs(img_goal, image_point, camera_matrix, gains_cart,vel_lim):
 
     return cmd_vel
 
+# Author: Alexander Silva
+# Autonomous Vehicle - Infnet	            
+# Version: 1.0                              
+# Date: 29-03-2021    
 def pbvs(image_point, camera_matrix, robot_pose, gains_cart, vel_lim, threshold):
     
     # Recovering gains
@@ -332,6 +340,10 @@ def get_img_point(image_point, camera_matrix, frame_id):
 
     return camera_point
 
+# Author: Alexander Silva
+# Autonomous Vehicle - Infnet	            
+# Version: 1.0                              
+# Date: 29-03-2021    
 def get_goal_stamped(cam_point):
    
     #rospy.loginfo(cam_point)

@@ -7,13 +7,12 @@
 # This node receives image poit and sends   #
 # control signal to the cmd_vel topic.      #
 #                                           #
-# Author: Adalberto Oliveira                #
+# Author: Alexander Silva                   #
 # Autonomous Vehicle - Infnet	            #
-# Version: 1.2                              #
-# Date: 13 mar 2021                         #
+# Version: 1.0                              #
+# Date: 29-03-2021                          #
 #                                           #
 #############################################
-
 
 # importing libraries
 import rospy, time, sys, math, control_lib, tf
@@ -43,12 +42,6 @@ def callback_camera_info(msg):
     camera_matrix[1] = u0
     camera_matrix[2] = v0
     
-    #rospy.loginfo(rospy.get_caller_id() + " Distancia focal = %s pixel", '{:.2f}'.format(f))
-    #rospy.loginfo(rospy.get_caller_id() + " Valor principal u0 = %s pixel", '{:.2f}'.format(u0))
-    #rospy.loginfo(rospy.get_caller_id() + " Valor principal v0 = %s pixel", '{:.2f}'.format(v0))
-    #rospy.loginfo(camera_matrix)
-
-
 def callback_img_point(msg):
     """
     This function receives the goal and saves it 
@@ -64,10 +57,7 @@ def callback_img_point(msg):
     v = msg.y
     base_point = [u, v]
     mask_is_true = msg.theta
-    distance = 0
-   
-    #rospy.loginfo(rospy.get_caller_id() + " Ponto base u = %s pixel", '{:.2f}'.format(u))
-    #rospy.loginfo(rospy.get_caller_id() + " Ponto base v = %s pixel", '{:.2f}'.format(v))
+    distance = 0   
 
     try:
         # finding distance to the point 
@@ -119,15 +109,13 @@ def control_robot():
     all work methods of fucntions into the codde.
     """
 
-    # Global variables
-    #global img_goal
+    # Global variables    
     global image_point
     global robot_pose
     global gains_cart
     global ctrl_type
     global max_lin
-    global max_ang
-    #global goal
+    global max_ang    
     global camera_matrix
     global mask_is_true
     global vel_lim
@@ -151,17 +139,9 @@ def control_robot():
     while not rospy.is_shutdown():
 
         # Computing the control signal
-        control_signal = Twist()
-        
-        # rospy.loginfo(camera_matrix)
-        # rospy.loginfo(image_point)
-        # rospy.loginfo(robot_pose)
-        # rospy.loginfo(gains_cart)
-        # rospy.loginfo(vel_lim)
-        # rospy.loginfo(threshold)
-        # rospy.loginfo(ctrl_type)
+        control_signal = Twist()       
 
-        # calling IBVS
+        # calling PBVS
         try:
             if ctrl_type == 0:                
                 
@@ -181,10 +161,7 @@ def control_robot():
         rospy.loginfo(rospy.get_caller_id() + " Distance to the target = %s m", '{:.2f}'.format(image_point.theta))
         rospy.loginfo(rospy.get_caller_id() + " Ponto base u = %s pixel", '{:.2f}'.format(image_point.x))
         rospy.loginfo(rospy.get_caller_id() + " Ponto base v = %s pixel", '{:.2f}'.format(image_point.y))
-        # rospy.loginfo(rospy.get_caller_id() + " Distancia focal = %s pixel", '{:.2f}'.format(camera_matrix[0]))
-        # rospy.loginfo(rospy.get_caller_id() + " Valor principal u0 = %s pixel", '{:.2f}'.format(camera_matrix[1]))
-        # rospy.loginfo(rospy.get_caller_id() + " Valor principal v0 = %s pixel", '{:.2f}'.format(camera_matrix[2]))
-        
+                
         rate.sleep()
 
 ############ MAIN CODE #######################
@@ -192,8 +169,6 @@ def control_robot():
 # Readin from launch
 K_eu = float(sys.argv[1])   # Control gain for linear velocity
 K_ev = float(sys.argv[2])   # Control gain for angular velocity
-# X_goal = float(sys.argv[3])
-# Y_goal = float(sys.argv[4])
 threshold = float(sys.argv[3])
 max_lin = float(sys.argv[4])
 max_ang = float(sys.argv[5])
@@ -204,9 +179,6 @@ camera_height = float(sys.argv[7])
 robot_pose = Pose2D()
 image_point = Pose2D()
 gains_cart = [K_eu, K_ev]
-# img_goal = Pose2D()
-# img_goal.x = X_goal
-# img_goal.y = Y_goal
 camera_matrix = np.zeros((3,1))
 vel_lim = [max_lin, max_ang]
 mask_is_true = False
