@@ -1,0 +1,8 @@
+prefix=/home/ros_ws/install
+
+Name: servo_visao
+Description: Description of servo_visao
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

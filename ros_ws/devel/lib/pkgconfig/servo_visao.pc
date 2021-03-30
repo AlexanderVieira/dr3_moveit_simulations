@@ -1,0 +1,1 @@
+/home/ros_ws/devel/.private/servo_visao/lib/pkgconfig/servo_visao.pc

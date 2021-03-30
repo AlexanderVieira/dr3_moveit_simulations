@@ -1,0 +1,8 @@
+prefix=/home/ros_ws/devel/.private/servo_visao
+
+Name: servo_visao
+Description: Description of servo_visao
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
