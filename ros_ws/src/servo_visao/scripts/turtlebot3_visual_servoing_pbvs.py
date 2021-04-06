@@ -158,7 +158,7 @@ def control_robot():
         #print control_signal
         cmd_vel.publish(control_signal)
         
-        rospy.loginfo(rospy.get_caller_id() + " Distance to the target = %s m", '{:.2f}'.format(image_point.theta))
+        rospy.loginfo(rospy.get_caller_id() + " Distancia do objejto = %s m", '{:.2f}'.format(image_point.theta))
         rospy.loginfo(rospy.get_caller_id() + " Ponto base u = %s pixel", '{:.2f}'.format(image_point.x))
         rospy.loginfo(rospy.get_caller_id() + " Ponto base v = %s pixel", '{:.2f}'.format(image_point.y))
                 

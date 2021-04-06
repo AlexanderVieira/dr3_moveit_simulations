@@ -1,9 +1,7 @@
 <launch>
    
     <arg name="K_eu" default="0.25" />
-    <arg name="K_ev" default="0.25" />
-    <!-- <arg name="X_goal" default="320" />
-    <arg name="Y_goal" default="480" /> -->
+    <arg name="K_ev" default="0.25" />    
     <arg name="threshold" default="0.3"/>
     <arg name="max_lin" default="0.5" />
     <arg name="max_ang" default="0.5" />   

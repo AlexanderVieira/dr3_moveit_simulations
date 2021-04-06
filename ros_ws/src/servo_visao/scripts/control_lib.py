@@ -71,10 +71,10 @@ def cartesian_control(robot_pose,goal,K_v,K_omega,max_lin=0.5, max_ang=0.5, thre
 # Date: 29-03-2021                          
 def cartesian_control_v1(robot_pose,goal_stamped,K_v,K_omega,max_lin, max_ang, threshold):
         
-    rospy.loginfo(rospy.get_caller_id() + " Posição inicial eixo X: %s m", '{:.2f}'.format(robot_pose.x))
-    rospy.loginfo(rospy.get_caller_id() + " Posição inicial eixo Y: %s m", '{:.2f}'.format(robot_pose.y))
-    rospy.loginfo(rospy.get_caller_id() + " Posição desejada eixo X: %s m", '{:.2f}'.format(goal_stamped.point.x))
-    rospy.loginfo(rospy.get_caller_id() + " Posição desejada eixo Y: %s m", '{:.2f}'.format(goal_stamped.point.y))
+    rospy.loginfo(rospy.get_caller_id() + " Posição robot_pose X: %s m", '{:.2f}'.format(robot_pose.x))
+    rospy.loginfo(rospy.get_caller_id() + " Posição robot_pose Y: %s m", '{:.2f}'.format(robot_pose.y))
+    rospy.loginfo(rospy.get_caller_id() + " Posição goal_stamped X: %s m", '{:.2f}'.format(goal_stamped.point.x))
+    rospy.loginfo(rospy.get_caller_id() + " Posição goal_stamped Y: %s m", '{:.2f}'.format(goal_stamped.point.y))
     rospy.loginfo(rospy.get_caller_id() + " Ganho linear: %s", '{:.2f}'.format(K_v))
     rospy.loginfo(rospy.get_caller_id() + " Ganho angular: %s", '{:.2f}'.format(K_omega))
     rospy.loginfo(rospy.get_caller_id() + " Regulação parcial: %s m", '{:.2f}'.format(threshold))
@@ -95,7 +95,8 @@ def cartesian_control_v1(robot_pose,goal_stamped,K_v,K_omega,max_lin, max_ang, t
     v = max_lin*np.sign(v) if abs(v) > max_lin else v
     omega = max_ang*np.sign(omega) if abs(omega) > max_ang else omega
 
-    #print('Error lin:',error_lin, 'Erro heading:',error_th)
+    rospy.loginfo(rospy.get_caller_id() + " error_lin: %s", '{:.2f}'.format(error_lin))
+    rospy.loginfo(rospy.get_caller_id() + " error_th: %s", '{:.2f}'.format(error_th))
 
     u = Twist()
 
@@ -165,9 +166,9 @@ def tracking_control(donkey_pose, master_pose, delta_tracking, gains, error_int,
     """
     
     # Recovering control gains
-    K_v = gains[0]
-    K_int = gains[1]
-    K_omega = gains[2]
+    K_v = gains[0]    
+    K_omega = gains[1]
+    K_int = gains[5]
 
     # Recovering velocitie limits
     max_lin_vel = max_vel[0]
@@ -278,8 +279,8 @@ def ibvs(img_goal, image_point, camera_matrix, gains_cart,vel_lim):
 def pbvs(image_point, camera_matrix, robot_pose, gains_cart, vel_lim, threshold):
     
     # Recovering gains
-    kv = gains_cart[0]
-    kw = gains_cart[1]
+    k_v = gains_cart[0]
+    k_w = gains_cart[1]
 
     # Recovering velocity limits
     max_lin = vel_lim[0]
@@ -293,7 +294,7 @@ def pbvs(image_point, camera_matrix, robot_pose, gains_cart, vel_lim, threshold)
     #rospy.loginfo(cam_point)
     goal_stamped = get_goal_stamped(cam_point)
     #rospy.loginfo(goal_stamped)
-    cmd_vel = cartesian_control_v1(robot_pose,goal_stamped,kv,kw,max_lin, max_ang, threshold)
+    cmd_vel = cartesian_control_v1(robot_pose, goal_stamped, k_v, k_w, max_lin, max_ang, threshold)
     #rospy.loginfo(cmd_vel)
 
     return cmd_vel
@@ -357,7 +358,7 @@ def get_goal_stamped(cam_point):
     listener = tf2.TransformListener(tfBuffer)
    
     # filling the object 
-    img_goal.header.stamp = rospy.Time(0)   # getting time stamp
+    img_goal.header.stamp = rospy.Time()   # getting time stamp
     img_goal.header.frame_id = cam_point.header.frame_id
     img_goal.point.x = cam_point.point.x 
     img_goal.point.y = cam_point.point.y
